@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRSwifty</title>
+    <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
+    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+</head>
+<header>
+    <h1>CRSwifty</h1>
+</header>
+
+<body>
+    <div>
+        <p>CRSwifty is a exploit that will be rolled out in RMA Shims. We will also provide binaries here, but currently
+            it allows for modification of GBB Flags in readonly firmware, WITHOUT removing the write-protect screw.</p>
+        <i>Before running any CRSwifty commands, make sure to <code>sudo initctl stop trunksd</code></i>
+        <p>
+            <h3>Offline Instructions</h3>
+            <ol type="1">
+              
+              <li>Download the latest <a href="https://crswifty.k1llswitch.live/build/crswifty">build</a> </li>
+              <li>get my <a href="https://crswifty.k1llswitch.live/client/ec.RO.elf" download="ec.RO.elf">ec.ro.elf</a> </li>
+              <li>execute <code>crswifty -f &lt;random file&gt; --sysinfo</code> (it won't actually ping any servers or validate if the random file is a real firmware file) (save this, you WILL need it later) </li>
+              <li>put the system info in the <a href="https://crswifty.k1llswitch.live/client" target="_blank">client</a> </li>
+              <li>download the signed image by pressing sign </li>
+              <li>put the signed image in the shim </li>
+              <li>Run <code>crswifty -f signed.bin --offline --verbose</code></li>
+            </ol>
+
+        </p>
+        <p>
+            <h3>Actually disabling wp:</h3>
+            <ol type="1">
+                <li>Download the latest <a href="https://crswifty.k1llswitch.live/client/ec.RW2.elf" download="ec.RW.elf">ec.RW.elf</a></li>
+                <li>Go to the <a href="https://crswifty.k1llswitch.live/client" target="_blank">client</a> </li>
+                <li>Input RW as the type, and the sysinfo you have gotten before and download the signed image</li>
+                <li>Put the signed image in the RMA Shim</li>
+                <li><code>crswifty -f signed.bin -t rw --offline --verbose</code></li>
+
+            </ol>  
+
+        </p>
+        <p>
+            This exploit was developed by MWZero. <br/>
+            Main developers: @unretained <br/>
+            Documentation: @MCRideable, @kxtz, @fallenmoon8080 <br/>
+            Testing: @fallenmoon8080, @obelous, @olyb <br/>
+
+        </p>
+        <p>
+            <h3>How to build your own cr50 image for uploading</h3>
+            Create a chromiumOS chroot at <a href="https://chromium.googlesource.com/chromiumos/docs/+/master/developer_guide.md">https://chromium.googlesource.com/chromiumos/docs/+/master/developer_guide.md</a>. After doing so follow these steps Run this from where you cloned the chromiumos source code.
+            <ol type="1">
+                <li>Modify the code in src/platform/cr50 to whatever you want.</li>
+                <li>Enter the chroot by running cros_sdk</li>
+                <li>Run cd ~/trunk/src/platform/cr50/</li>
+                <li>Run make BOARD=cr50</li>
+                <li>Exit the chroot</li>
+                <li>From the directory you entered the chroot, run cp src/platform/cr50/build/cr50/RO/ec.RO.elf and use that as the firmware file input for crswifty.</li>
+            </ol>
+            
+        </p>
+        <p>
+            This project is currently closed source. On 9/10/2023, the project will be open sourced. Once open-source, I will link the github repo here.
+        </p>
+    </div>
+
+</body>
+
+</html>
